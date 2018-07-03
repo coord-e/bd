@@ -1,11 +1,14 @@
 #!/usr/bin/env bd
 
-info "Startup"
+name "hello"
+
+info "Started!"
 
 for i in `seq 10`; do
   progress "I'm makin' a progress"
+  sleep 1
 done
 
-progress "I made a great progress"
+confirm "Are you ok?" || error "You're not OK...";
 
-
+info "Exiting..."
