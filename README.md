@@ -2,6 +2,8 @@
 
 Bash Framework to Build CLI tools
 
+**This project is in progress. Please see [TODO](#TODO) and PRs are welcome.**
+
 # Example
 
 ```bash
@@ -39,3 +41,11 @@ Are you ok? [y/n] > n
 [ERROR]  You're not OK...
 [INFO]  Exiting...
 ```
+
+# TODO
+
+- `arg` command: Easy argument parsing and help generation
+- explicit `progress` range: Provide a way to set `progress` range without profiling
+- `config` command: Stress-free configuration management
+- `bd eject`: Make your script independent from `bd`
+- and more!
