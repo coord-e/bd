@@ -83,6 +83,7 @@ function args() {
 
   local parsing=""
 
+  opts["--help"]="bool"
   for OPT in $args_spec
   do
     read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $OPT)
@@ -185,6 +186,22 @@ function args() {
       esac
     fi
   done
+
+  if $arg_help; then
+    echo -n "usage: $SCRIPT_NAME "
+    for OPT in "${!opts[@]}"; do
+      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
+      if [[ -z "$example" ]]; then
+        example=""
+      else
+        example="(=${example//\"/})"
+      fi
+
+      printf "[%s %s%s] " "$OPT" "${type}" "${example}"
+    done
+    echo
+    exit 0
+  fi
 }
 
 source $SCRIPT
