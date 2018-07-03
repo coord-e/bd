@@ -85,16 +85,33 @@ function args() {
 
   for OPT in $args_spec
   do
+    read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $OPT)
+    example=${example//\"/}
+
     if [ -n "$parsing" ]; then
-      if [[ -n "${types[$OPT]}" ]]; then
+      if [[ -n "${types[$type]}" ]]; then
         opts[$parsing]=$OPT
         parsing=""
+        case $type in
+          'number' )
+            if [[ -n $example ]] && [[ ! $example =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
+              error "arg: parse failed; number is required as example but got \"$example\""
+              exit -1
+            fi
+            ;;
+          'bool' )
+            if [[ -n $example ]]; then
+              error "arg: parse failed; example value in flag"
+              exit -1
+            fi
+            ;;
+        esac
       else
         error "arg: parse failed; unexpected non-type expression $OPT"
         exit -1
       fi
     else
-      if [[ -n "${types[$OPT]}" ]]; then
+      if [[ -n "${types[$type]}" ]]; then
         error "arg: parse failed; unexpected type expression $OPT"
         exit -1
       fi
@@ -111,7 +128,9 @@ function args() {
   for OPT in $ARGS
   do
     if [ -n "$parsing" ]; then
-      case ${opts[$parsing]} in
+      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$parsing]})
+
+      case $type in
         'number' )
           if [[ ! $OPT =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
             error "arg: parse failed; number is required but got \"$OPT\""
@@ -129,8 +148,9 @@ function args() {
           error "arg: parse failed; $OPT is already supplied"
           exit -1
         fi
+        read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $opts[$OPT])
 
-        if [[ ${opts[$OPT]} == "bool" ]]; then
+        if [[ $type == "bool" ]]; then
           eval "readonly arg_${OPT//-/}=true"
           already_got[$OPT]=1
           parsing=""
@@ -152,12 +172,15 @@ function args() {
   for OPT in "${!opts[@]}"
   do
     if [[ -z "${already_got[$OPT]}" ]]; then
-      case ${opts[$OPT]} in
+      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
+      example=${example//\"/}
+
+      case ${type} in
         'bool' )
           eval "readonly arg_${OPT//-/}=false"
           ;;
         * )
-          eval "readonly arg_${OPT//-/}="
+          eval "readonly arg_${OPT//-/}=$example"
           ;;
       esac
     fi
