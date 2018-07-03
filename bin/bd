@@ -7,6 +7,8 @@ if [ ! -d "$BD_CACHE" ]; then
 fi
 
 SCRIPT=$1
+shift
+ARGS=$@
 SCRIPT_NAME=$SCRIPT
 
 function info (){
@@ -68,6 +70,63 @@ function progress() {
   local status="$(printf "%3d" $percentage)%"
   local text="$1"
   echo -e "\033[0;32m $status -> \033[0m\033[0;01m $text\033[0;0m"
+}
+
+function args() {
+  local args_spec=$@
+
+  declare -A types=(
+   [string]=1  [number]=2  [bool]=3
+  )
+
+  declare -A opts
+
+  local parsing=""
+
+  for OPT in $args_spec
+  do
+    if [ -n "$parsing" ]; then
+      if [[ -n "${types[$OPT]}" ]]; then
+        opts[$parsing]=$OPT
+        parsing=""
+      else
+        error "arg: parse failed; unexpected non-type expression $OPT"
+        exit -1
+      fi
+    else
+      if [[ -n "${types[$OPT]}" ]]; then
+        error "arg: parse failed; unexpected type expression $OPT"
+        exit -1
+      fi
+      if [[ $OPT != -* ]]; then
+        error "arg: parse failed; option must be started with -"
+        exit -1
+      fi
+      parsing=$OPT
+    fi
+  done
+
+  local arg_file=$(mktemp)
+  parsing=""
+  for OPT in $ARGS
+  do
+    if [ -n "$parsing" ]; then
+      eval "readonly arg_${parsing//-/}=$OPT"
+      parsing=""
+    else
+      if [[ -n "${opts[$OPT]}" ]]; then
+        parsing=$OPT
+      else
+        if [[ $OPT != -* ]]; then
+          error "arg: parse failed; unexpected expression $OPT"
+          exit -1
+        else
+          error "arg: parse failed; unknown option $OPT"
+          exit -1
+        fi
+      fi
+    fi
+  done
 }
 
 source $SCRIPT
