@@ -41,6 +41,14 @@ function name() {
   SCRIPT_NAME=$1
 }
 
+function description() {
+  if [ -t 1 ]; then
+    SCRIPT_DESCRIPTION=$(cat)
+  else
+    SCRIPT_DESCRIPTION=$@
+  fi
+}
+
 function profile() {
   local file=$1
   shift
@@ -199,7 +207,10 @@ function args() {
 
       printf "[%s %s%s] " "$OPT" "${type}" "${example}"
     done
-    echo
+    printf "\n\n"
+    while read line; do
+      printf "\t%s\n" "$line"
+    done <<< $SCRIPT_DESCRIPTION
     exit 0
   fi
 }
