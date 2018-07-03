@@ -10,6 +10,8 @@ tmpscript=$tmpdir/script.sh
 
 while read -d ' ' line; do
 cat << EOF >> $tmpscript
+function sleep() { :; }
+
 count_$line=0
 
 function $line() {
