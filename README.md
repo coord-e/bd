@@ -2,7 +2,7 @@
 
 Bash Framework to Build CLI tools
 
-**This project is in progress. Please see [TODO](#TODO) and PRs are welcome.**
+**This project is in progress. Please see [TODO](#todo) and PRs are welcome.**
 
 # Example
 
