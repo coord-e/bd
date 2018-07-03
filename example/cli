@@ -1,0 +1,11 @@
+#!/usr/bin/env bd
+
+info "Startup"
+
+for i in `seq 10`; do
+  progress "I'm makin' a progress"
+done
+
+progress "I made a great progress"
+
+
