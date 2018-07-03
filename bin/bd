@@ -111,6 +111,15 @@ function args() {
   for OPT in $ARGS
   do
     if [ -n "$parsing" ]; then
+      case ${opts[$parsing]} in
+        'number' )
+          if [[ ! $OPT =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
+            error "arg: parse failed; number is required but got \"$OPT\""
+            exit -1
+          fi
+          ;;
+      esac
+
       eval "readonly arg_${parsing//-/}=$OPT"
       parsing=""
     else
