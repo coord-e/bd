@@ -1,0 +1,47 @@
+#!/bin/bash
+
+SCRIPT=$1
+SCRIPT_NAME=$SCRIPT
+
+function info (){
+  echo -e "\033[0;32m[INFO] \033[0m\033[0;01m $1\033[0;0m"
+}
+
+function error (){
+  echo -e "\033[0;31m[ERROR] \033[0m\033[0;01m $1\033[0;0m"
+}
+
+function warn (){
+  echo -e "\033[0;33m[WARN] \033[0m\033[0;01m $1\033[0;0m"
+}
+
+function confirm (){
+  local MSG=$1
+  while true; do
+    printf '%s ' "$MSG"
+    printf "[y/n] > "
+    read input
+    if [ "$input" = "y" ]; then
+      return 0;
+    elif [ "$input" = "n" ]; then
+      return 1;
+    fi
+  done
+}
+
+function name() {
+  SCRIPT_NAME=$1
+}
+
+total_progress=$(lib/prof.bash $SCRIPT progress | awk '{print $2}')
+current_progress=0
+
+function progress() {
+  current_progress=$((current_progress += 1))
+  local percentage=$(( current_progress * 100 / total_progress ))
+  local status="$(printf "%3d" $percentage)%"
+  local text="$1"
+  echo -e "\033[0;32m $status -> \033[0m\033[0;01m $text\033[0;0m"
+}
+
+source $SCRIPT
