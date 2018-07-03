@@ -148,7 +148,7 @@ function args() {
           error "arg: parse failed; $OPT is already supplied"
           exit -1
         fi
-        read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $opts[$OPT])
+        read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
 
         if [[ $type == "bool" ]]; then
           eval "readonly arg_${OPT//-/}=true"
