@@ -106,7 +106,7 @@ function args() {
     fi
   done
 
-  local arg_file=$(mktemp)
+  declare -A already_got
   parsing=""
   for OPT in $ARGS
   do
@@ -121,10 +121,22 @@ function args() {
       esac
 
       eval "readonly arg_${parsing//-/}=$OPT"
+      already_got[$parsing]=1
       parsing=""
     else
       if [[ -n "${opts[$OPT]}" ]]; then
-        parsing=$OPT
+        if [[ -n "${already_got[$OPT]}" ]]; then
+          error "arg: parse failed; $OPT is already supplied"
+          exit -1
+        fi
+
+        if [[ ${opts[$OPT]} == "bool" ]]; then
+          eval "readonly arg_${OPT//-/}=true"
+          already_got[$OPT]=1
+          parsing=""
+        else
+          parsing=$OPT
+        fi
       else
         if [[ $OPT != -* ]]; then
           error "arg: parse failed; unexpected expression $OPT"
@@ -134,6 +146,20 @@ function args() {
           exit -1
         fi
       fi
+    fi
+  done
+
+  for OPT in "${!opts[@]}"
+  do
+    if [[ -z "${already_got[$OPT]}" ]]; then
+      case ${opts[$OPT]} in
+        'bool' )
+          eval "readonly arg_${OPT//-/}=false"
+          ;;
+        * )
+          eval "readonly arg_${OPT//-/}="
+          ;;
+      esac
     fi
   done
 }
