@@ -10,8 +10,9 @@ Bash Framework to Build CLI tools
 #!/usr/bin/env bd
 
 name "hello"
+args --you string:World --ok bool
 
-info "Started!"
+info "Hello, $arg_you"
 
 range 1 10
 for i in $iterations; do
@@ -19,13 +20,15 @@ for i in $iterations; do
   sleep 1
 done
 
-confirm "Are you ok?" || error "You're not OK...";
+if ! $arg_ok; then
+  confirm "Are you ok?" || error "You're not OK...";
+fi
 
 info "Exiting..."
 ```
 
 ```
-[INFO]  Started!
+[INFO]  Hello, World
   10% ->  I'm makin' a progress
   20% ->  I'm makin' a progress
   30% ->  I'm makin' a progress
