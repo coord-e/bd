@@ -1,18 +1,11 @@
 total_progress=0
 current_progress=0
 
-function _save_progress_state() {
-  _save total_progress current_progress
-}
-
-function _load_progress_state() {
-  _load total_progress current_progress
-}
-
 function iter() {
   iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
-  _save_progress_state
+  current_progress=0
+  _save total_progress current_progress
   echo $iterations
 }
 
@@ -32,7 +25,7 @@ function range() {
 }
 
 function progress() {
-  _load_progress_state
+  _load current_progress total_progress
   current_progress=$((current_progress += 1))
   if [[ "$total_progress" == "0" ]]; then
     local status="$(printf "%3d" $current_progress)."
@@ -47,5 +40,5 @@ function progress() {
     current_progress=0
     total_progress=0
   fi
-  _save_progress_state
+  _save total_progress current_progress
 }
