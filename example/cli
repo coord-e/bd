@@ -1,14 +1,26 @@
 #!/usr/bin/env bd
 
 name "hello"
+description << EOF
+Welcome to "bd", a super-easy bash cli framework!
+Source code at https://github.com/coord-e/bd
+EOF
+
+args --times number:10 --ok bool
 
 info "Started!"
 
-for i in `seq 10`; do
-  progress "I'm makin' a progress"
+range 1 $arg_times
+for i in $iterations; do
+  progress "I'm makin' a progress $i"
   sleep 1
 done
 
-confirm "Are you ok?" || error "You're not OK...";
+if ! $arg_ok; then
+  confirm "Are you ok?" || error "You're not OK...";
+fi
+
+progress "done"
+
 
 info "Exiting..."
