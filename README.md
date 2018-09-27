@@ -13,7 +13,8 @@ name "hello"
 
 info "Started!"
 
-for i in `seq 10`; do
+range 1 10
+for i in $iterations; do
   progress "I'm makin' a progress"
   sleep 1
 done
@@ -24,8 +25,6 @@ info "Exiting..."
 ```
 
 ```
-[WARN]  Profiling on the first run...
-[WARN]  Done profiling and cached the result.
 [INFO]  Started!
   10% ->  I'm makin' a progress
   20% ->  I'm makin' a progress
