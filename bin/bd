@@ -49,25 +49,6 @@ function description() {
   fi
 }
 
-function profile() {
-  local file=$1
-  shift
-  local prof_commands=$@
-  local prof_file_id=$(md5sum $file | awk '{print $1}')
-  local prof_com_id=$(echo "$prof_commands" | md5sum | awk '{print $1}')
-  local prof_id=$prof_file_id.$prof_com_id
-  local prof_file=$BD_CACHE/$prof_id
-  if [ -f "$prof_file" ]; then
-    echo $prof_file
-    return 0
-  fi
-
-  warn 'Profiling on the first run...'
-  lib/prof.bash $file $prof_commands > $prof_file
-  warn 'Done profiling and cached the result.'
-  echo $prof_file
-}
-
 total_progress=0
 current_progress=0
 
