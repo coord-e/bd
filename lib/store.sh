@@ -1,11 +1,13 @@
 function _save() {
-  key=$1
-  value=$(eval "echo \$$key")
-  echo $value > $BD_CACHE/$key
+  for key in $@; do
+    value=$(eval "echo \$$key")
+    echo $value > $BD_CACHE/$key
+  done
 }
 
 function _load() {
-  key=$1
-  value=$(cat $BD_CACHE/$key)
-  eval "$key=$value"
+  for key in $@; do
+    value=$(cat $BD_CACHE/$key)
+    eval "$key=$value"
+  done
 }

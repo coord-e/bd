@@ -2,13 +2,11 @@ total_progress=0
 current_progress=0
 
 function _save_progress_state() {
-  _save total_progress
-  _save current_progress
+  _save total_progress current_progress
 }
 
 function _load_progress_state() {
-  _load total_progress
-  _load current_progress
+  _load total_progress current_progress
 }
 
 function iter() {
