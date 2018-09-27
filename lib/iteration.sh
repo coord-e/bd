@@ -1,9 +1,21 @@
 total_progress=0
 current_progress=0
 
+function _save_progress_state() {
+  echo $total_progress > $BD_CACHE/total_progress
+  echo $current_progress > $BD_CACHE/current_progress
+}
+
+function _load_progress_state() {
+  total_progress=$(cat $BD_CACHE/total_progress)
+  current_progress=$(cat $BD_CACHE/current_progress)
+}
+
 function iter() {
   iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
+  _save_progress_state
+  echo $iterations
 }
 
 function range() {
@@ -18,11 +30,11 @@ function range() {
       end=$2
       ;;
   esac
-  iterations=$(eval "echo {$start..$end}")
-  total_progress=$(wc -w <<< $iterations)
+  iter {$start..$end}
 }
 
 function progress() {
+  _load_progress_state
   current_progress=$((current_progress += 1))
   if [[ "$total_progress" == "0" ]]; then
     local status="$(printf "%3d" $current_progress)."
@@ -37,4 +49,5 @@ function progress() {
     current_progress=0
     total_progress=0
   fi
+  _save_progress_state
 }

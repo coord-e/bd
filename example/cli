@@ -10,8 +10,7 @@ args --times number:10 --ok bool
 
 info "Started!"
 
-range 1 $arg_times
-for i in $iterations; do
+for i in $(range 1 $arg_times); do
   progress "I'm makin' a progress $i"
   sleep 1
 done
