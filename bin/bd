@@ -11,17 +11,9 @@ shift
 ARGS=$@
 SCRIPT_NAME=$SCRIPT
 
-function info (){
-  echo -e "\033[0;32m[INFO] \033[0m\033[0;01m $1\033[0;0m" >&2
-}
+BD_ROOT="$(realpath $(dirname $0)/..)"
 
-function error (){
-  echo -e "\033[0;31m[ERROR] \033[0m\033[0;01m $1\033[0;0m" >&2
-}
-
-function warn (){
-  echo -e "\033[0;33m[WARN] \033[0m\033[0;01m $1\033[0;0m" >&2
-}
+source $BD_ROOT/lib/print.sh
 
 function confirm (){
   local MSG=$1
