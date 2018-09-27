@@ -72,7 +72,18 @@ total_progress=0
 current_progress=0
 
 function iter() {
-  iterations=$(eval "echo $@")
+  local start=0
+  local end=0
+  case "$#" in
+    "1")
+      end=$1
+      ;;
+    "2")
+      start=$1
+      end=$2
+      ;;
+  esac
+  iterations=$(eval "echo {$start..$end}")
   total_progress=$(wc -w <<< $iterations)
 }
 
