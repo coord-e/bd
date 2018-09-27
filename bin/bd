@@ -14,20 +14,7 @@ SCRIPT_NAME=$SCRIPT
 BD_ROOT="$(realpath $(dirname $0)/..)"
 
 source $BD_ROOT/lib/print.sh
-
-function confirm (){
-  local MSG=$1
-  while true; do
-    printf '%s ' "$MSG"
-    printf "[y/n] > "
-    read input
-    if [ "$input" = "y" ]; then
-      return 0;
-    elif [ "$input" = "n" ]; then
-      return 1;
-    fi
-  done
-}
+source $BD_ROOT/lib/confirm.sh
 
 function name() {
   SCRIPT_NAME=$1
