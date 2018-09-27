@@ -17,18 +17,6 @@ source $BD_ROOT/lib/print.sh
 source $BD_ROOT/lib/confirm.sh
 source $BD_ROOT/lib/iteration.sh
 source $BD_ROOT/lib/args.sh
-
-function name() {
-  SCRIPT_NAME=$1
-}
-
-function description() {
-  if [ -t 1 ]; then
-    SCRIPT_DESCRIPTION=$(cat)
-  else
-    SCRIPT_DESCRIPTION=$@
-  fi
-}
-
+source $BD_ROOT/lib/metadata.sh
 
 source $SCRIPT
