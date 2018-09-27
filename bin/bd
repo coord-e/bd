@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 readonly BD_CACHE="$HOME/.cache/bd"
 
