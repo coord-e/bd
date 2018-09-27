@@ -43,8 +43,6 @@ Are you ok? [y/n] > n
 
 # TODO
 
-- `arg` command: Easy argument parsing and help generation
-- explicit `progress` range: Provide a way to set `progress` range without profiling
 - `config` command: Stress-free configuration management
 - `bd eject`: Make your script independent from `bd`
 - and more!
