@@ -1,23 +1,9 @@
 #!/usr/bin/env bash
 
-readonly BD_CACHE="$HOME/.cache/bd"
+readonly BD_ROOT="$(realpath $(dirname $0)/..)"
+readonly BD_BIN=$BD_ROOT/bin/bd
 
-if [ ! -d "$BD_CACHE" ]; then
-  mkdir $BD_CACHE
-fi
-
-if [ -v BD_EJECTED ]; then
-  BD_SCRIPT=$0
-else
-  BD_SCRIPT=$1
-  shift
-fi
-
-BD_ARGS=($@)
-BD_SCRIPT_NAME=$BD_SCRIPT
-
-BD_ROOT="$(realpath $(dirname $0)/..)"
-BD_BIN=$BD_ROOT/bin/bd
+source $BD_ROOT/lib/global_variables.sh
 
 function bd_import() {
   source $@

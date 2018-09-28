@@ -28,9 +28,10 @@ function bd::eject() {
 
   echo "#!/usr/bin/env bash" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
+  cat  $BD_ROOT/lib/global_variables.sh >> $outfile
   for cmd in "${used_cmds[@]}"; do
     local definition=$(declare -f $cmd)
-    echo "${definition#bd::cmd::}" >> $outfile
+    echo "${definition//bd::cmd::/}" >> $outfile
   done
 
   cat $BD_SCRIPT >> $outfile
