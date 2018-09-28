@@ -1,6 +1,3 @@
-total_progress=0
-current_progress=0
-
 function bd::cmd::iter() {
   iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
