@@ -1,6 +1,7 @@
 function bd::util::find_used() {
   bd_used_cmds=()
   local bd_cmds=($(compgen -A function | grep bd::cmd::))
+  bd_cmds+=(${BD_DEFAULT_EJECTED_FUNCTIONS[@]})
   bd::store::save bd_used_cmds bd_cmds
   bd::util::find_used_impl true
   bd::store::load bd_used_cmds
