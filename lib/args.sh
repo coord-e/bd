@@ -52,7 +52,7 @@ function bd::cmd::args() {
 
   declare -A already_got
   parsing=""
-  for OPT in $BD_ARGS
+  for OPT in "${BD_ARGS[@]}"
   do
     if [ -n "$parsing" ]; then
       read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$parsing]})

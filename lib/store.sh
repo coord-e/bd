@@ -1,20 +1,33 @@
-function _save() {
+function bd::store::save() {
   for key in $@; do
-    if [ ! -v $key ]; then
-      warn "internal; saving variable \"$key\", which is not defined"
+    if [[ "$(declare -p $key)" =~ "declare -a" ]]; then
+      local value=$(eval "echo \"\${$key[@]}\"")
+      local path=$BD_CACHE/$key.ary
+    elif [ ! -v $key ]; then
+      bd::cmd::warn "internal; saving variable \"$key\", which is not defined"
+    else
+      local value=$(eval "echo \"\$$key\"")
+      local path=$BD_CACHE/$key
     fi
-    value=$(eval "echo \$$key")
-    echo $value > $BD_CACHE/$key
+    echo "$value" > $path
   done
 }
 
-function _load() {
+function bd::store::load() {
   for key in $@; do
     local path=$BD_CACHE/$key
-    if [ ! -f $path ]; then
-      warn "internal; loading variable \"$key\", which is not defined"
+    if [ -f $path.ary ]; then
+      path=$path.ary
+    elif [ ! -f $path ]; then
+      bd::cmd::warn "internal; loading variable \"$key\", which is not defined"
     fi
-    value=$(cat $path)
-    eval "$key=$value"
+    local value=$(cat $path)
+    if [[ "$path" == *.ary ]]; then
+      eval "$key=($value)"
+    else
+      eval "$key=\"$value\""
+    fi
   done
 }
+
+BD_DEFAULT_EJECTED_FUNCTIONS+=("bd::store::save" "bd::store::load")
