@@ -105,7 +105,8 @@ function bd::cmd::args() {
   done
 
   if $arg_help; then
-    echo -n "usage: $BD_SCRIPT_NAME "
+    echo "name: $BD_SCRIPT_NAME"
+    echo -n "usage: $(basename $BD_SCRIPT) "
     for OPT in "${!opts[@]}"; do
       read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
       if [[ -z "$example" ]]; then
