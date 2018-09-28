@@ -18,12 +18,6 @@ source $BD_ROOT/lib/confirm.sh
 source $BD_ROOT/lib/iteration.sh
 source $BD_ROOT/lib/args.sh
 source $BD_ROOT/lib/metadata.sh
+source $BD_ROOT/lib/run.sh
 
-for name in $(compgen -A function); do
-  if [[ "$name" == bd::cmd::* ]]; then
-    definition=$(declare -f $name)
-    eval "${definition#bd::cmd::}"
-  fi
-done
-
-source $SCRIPT
+run $SCRIPT
