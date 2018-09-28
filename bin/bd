@@ -21,8 +21,8 @@ source $BD_ROOT/lib/metadata.sh
 
 for name in $(compgen -A function); do
   if [[ "$name" == bd::cmd::* ]]; then
-    vis_name=${name#bd::cmd::}
-    eval "function $vis_name () { $name \"\$@\"; }"
+    definition=$(declare -f $name)
+    eval "${definition#bd::cmd::}"
   fi
 done
 
