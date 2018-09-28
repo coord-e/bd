@@ -1,12 +1,13 @@
 function bd::util::find_used() {
   bd_used_cmds=()
-  bd::store::save bd_used_cmds
+  local bd_cmds=($(compgen -A function | grep bd::cmd::))
+  bd::store::save bd_used_cmds bd_cmds
   bd::util::find_used_impl true
   bd::store::load bd_used_cmds
 }
 
 function bd::util::find_used_impl() {
-  local bd_cmds=($(compgen -A function | grep bd::cmd::))
+  bd::store::load bd_cmds
   while read line
   do
     for cmd in "${bd_cmds[@]}"; do
