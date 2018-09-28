@@ -1,5 +1,5 @@
 function bd::cmd::debug (){
-  echo -e "\033[0;69m[DEBUG] \033[0m\033[0;01m $1\033[0;0m" >&2
+  echo -e "\033[0;35m[DEBUG] \033[0m $1" >&2
 }
 
 function bd::cmd::info (){
