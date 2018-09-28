@@ -15,6 +15,8 @@ fi
 function eject() {
   progress "Start ejecting \"$SCRIPT\" into \"$outfile\""
 
+  echo "#!/usr/bin/env bash" >> $outfile
+  echo "readonly BD_EJECTED=true" >> $outfile
   while read line
   do
     if [[ $line == bd_import* ]]; then

@@ -6,8 +6,13 @@ if [ ! -d "$BD_CACHE" ]; then
   mkdir $BD_CACHE
 fi
 
-SCRIPT=$1
-shift
+if [ -v BD_EJECTED ]; then
+  SCRIPT=$0
+else
+  SCRIPT=$1
+  shift
+fi
+
 ARGS=($@)
 SCRIPT_NAME=$SCRIPT
 
