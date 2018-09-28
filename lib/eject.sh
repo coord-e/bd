@@ -15,19 +15,25 @@ fi
 function bd::eject() {
   bd::cmd::progress "Start ejecting \"$BD_SCRIPT\" into \"$outfile\""
 
-  echo "#!/usr/bin/env bash" >> $outfile
-  echo "readonly BD_EJECTED=true" >> $outfile
+  local bd_cmds=($(compgen -A function | grep bd::cmd::))
+  local used_cmds=()
   while read line
   do
-    if [[ "$line" == bd_import* ]]; then
-      local cmdline=($line)
-      local importing="$(eval "echo ${cmdline[1]}")"
-      cat "$importing" >> $outfile
-      bd::cmd::progress "Importing $importing"
-    else
-      echo "$line" >> $outfile
-    fi
-  done < $BD_BIN
+    for cmd in "${bd_cmds[@]}"; do
+      if [[ "$line" == *"${cmd#bd::cmd::}"* ]]; then
+        used_cmds+=("$cmd")
+      fi
+    done
+  done < $BD_SCRIPT
+
+  echo "#!/usr/bin/env bash" >> $outfile
+  echo "readonly BD_EJECTED=true" >> $outfile
+  for cmd in "${used_cmds[@]}"; do
+    local definition=$(declare -f $cmd)
+    echo "${definition#bd::cmd::}" >> $outfile
+  done
+
+  cat $BD_SCRIPT >> $outfile
   bd::cmd::progress "Make output executable"
   chmod +x $outfile
   bd::cmd::progress "Done."
