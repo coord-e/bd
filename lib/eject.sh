@@ -48,7 +48,6 @@ function bd::eject() {
   bd::cmd::progress "Start ejecting \"$BD_SCRIPT\" into \"$outfile\""
 
   bd::util::find_used < $BD_SCRIPT
-  bd_used_cmds+=(${BD_DEFAULT_EJECTED_FUNCTIONS[@]})
 
   echo "#!/usr/bin/env bash" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
