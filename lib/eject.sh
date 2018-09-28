@@ -19,7 +19,7 @@ function eject() {
   echo "readonly BD_EJECTED=true" >> $outfile
   while read line
   do
-    if [[ $line == bd_import* ]]; then
+    if [[ "$line" == bd_import* ]]; then
       local cmdline=($line)
       local importing="$(eval "echo ${cmdline[1]}")"
       cat "$importing" >> $outfile
