@@ -22,24 +22,24 @@ function bd::cmd::args() {
         case $type in
           'number' )
             if [[ -n $example ]] && [[ ! $example =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-              bd::cmd::error_exit "arg: parse failed; number is required as example but got \"$example\""
+              bd::logger::error_exit "args: parse failed; number is required as example but got \"$example\""
             fi
             ;;
           'bool' )
             if [[ -n $example ]]; then
-              bd::cmd::error_exit "arg: parse failed; example value in flag"
+              bd::logger::error_exit "args: parse failed; example value in flag"
             fi
             ;;
         esac
       else
-        bd::cmd::error_exit "arg: parse failed; unexpected non-type expression $OPT"
+        bd::logger::error_exit "args: parse failed; unexpected non-type expression $OPT"
       fi
     else
       if [[ -n "${types[$type]}" ]]; then
-        bd::cmd::error_exit "arg: parse failed; unexpected type expression $OPT"
+        bd::logger::error_exit "args: parse failed; unexpected type expression $OPT"
       fi
       if [[ $OPT != -* ]]; then
-        bd::cmd::error_exit "arg: parse failed; option must be started with -"
+        bd::logger::error_exit "args: parse failed; option must be started with -"
       fi
       parsing=$OPT
     fi
@@ -55,7 +55,7 @@ function bd::cmd::args() {
       case $type in
         'number' )
           if [[ ! $OPT =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-            bd::cmd::error_exit "arg: parse failed; number is required but got \"$OPT\""
+            bd::logger::error_exit "args: parse failed; number is required but got \"$OPT\""
           fi
           ;;
       esac
@@ -66,7 +66,7 @@ function bd::cmd::args() {
     else
       if [[ -n "${opts[$OPT]}" ]]; then
         if [[ -n "${already_got[$OPT]}" ]]; then
-          bd::cmd::error_exit "arg: parse failed; $OPT is already supplied"
+          bd::logger::error_exit "args: parse failed; $OPT is already supplied"
         fi
         read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
 
@@ -79,9 +79,9 @@ function bd::cmd::args() {
         fi
       else
         if [[ $OPT != -* ]]; then
-          bd::cmd::error_exit "arg: parse failed; unexpected expression $OPT"
+          bd::logger::error_exit "args: parse failed; unexpected expression $OPT"
         else
-          bd::cmd::error_exit "arg: parse failed; unknown option $OPT"
+          bd::logger::error_exit "args: parse failed; unknown option $OPT"
         fi
       fi
     fi

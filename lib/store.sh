@@ -4,7 +4,7 @@ function bd::store::save() {
       local value=$(eval "echo \"\${$key[@]}\"")
       local path=$BD_CACHE/$key.ary
     elif [ ! -v $key ]; then
-      bd::cmd::warn "internal; saving variable \"$key\", which is not defined"
+      bd::logger::warn "saving variable \"$key\", which is not defined"
     else
       local value=$(eval "echo \"\$$key\"")
       local path=$BD_CACHE/$key
@@ -19,7 +19,7 @@ function bd::store::load() {
     if [ -f $path.ary ]; then
       path=$path.ary
     elif [ ! -f $path ]; then
-      bd::cmd::warn "internal; loading variable \"$key\", which is not defined"
+      bd::logger::warn "loading variable \"$key\", which is not defined"
     fi
     local value=$(cat $path)
     if [[ "$path" == *.ary ]]; then
