@@ -6,9 +6,9 @@ if [ ! -d "$BD_CACHE" ]; then
   mkdir $BD_CACHE
 fi
 
-BD_SCRIPT=$1
+readonly BD_SCRIPT=$1
 shift
-BD_ARGS=$@
+readonly BD_ARGS=$@
 BD_SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
