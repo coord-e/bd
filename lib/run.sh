@@ -8,5 +8,5 @@ function bd::run() {
     fi
   done
 
-  bd_import $script
+  source $script
 }

@@ -5,16 +5,12 @@ readonly BD_BIN=$BD_ROOT/bin/bd
 
 source $BD_ROOT/lib/global_variables.sh
 
-function bd_import() {
-  source $@
-}
-
-bd_import $BD_ROOT/lib/print.sh
-bd_import $BD_ROOT/lib/confirm.sh
-bd_import $BD_ROOT/lib/iteration.sh
-bd_import $BD_ROOT/lib/args.sh
-bd_import $BD_ROOT/lib/metadata.sh
-bd_import $BD_ROOT/lib/run.sh
+source $BD_ROOT/lib/print.sh
+source $BD_ROOT/lib/confirm.sh
+source $BD_ROOT/lib/iteration.sh
+source $BD_ROOT/lib/args.sh
+source $BD_ROOT/lib/metadata.sh
+source $BD_ROOT/lib/run.sh
 
 if [ "$BD_SCRIPT" == "eject" ]; then
   BD_SCRIPT=${BD_ARGS[0]}
