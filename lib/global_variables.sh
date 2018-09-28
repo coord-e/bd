@@ -19,4 +19,4 @@ bd_current_progress=0
 
 BD_DEFAULT_EJECTED_FUNCTIONS=()
 
-BD_LOG_LEVEL=info
+BD_LOG_LEVEL=${BD_LOG_LEVEL:-info}
