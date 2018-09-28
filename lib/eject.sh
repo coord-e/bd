@@ -13,6 +13,7 @@ function eject() {
       echo "$line" >> $outfile
     fi
   done < $BD_BIN
+  progress "Done."
 }
 
 eject
