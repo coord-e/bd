@@ -5,6 +5,8 @@ readonly BD_BIN=$BD_ROOT/bin/bd
 
 source $BD_ROOT/lib/global_variables.sh
 
+source $BD_ROOT/lib/store.sh
+
 source $BD_ROOT/lib/print.sh
 source $BD_ROOT/lib/confirm.sh
 source $BD_ROOT/lib/iteration.sh

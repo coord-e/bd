@@ -14,8 +14,7 @@ args --you string:World --ok bool
 
 info "Hello, $arg_you"
 
-range 1 10
-for i in $iterations; do
+for i in $(range 1 10); do
   progress "I'm makin' a progress"
   sleep 1
 done

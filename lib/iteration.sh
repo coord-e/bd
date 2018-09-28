@@ -1,6 +1,10 @@
 function bd::cmd::iter() {
-  iterations=$(eval "echo $@")
+  local iterations=$(eval "echo $@")
+  local iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
+  current_progress=0
+  _save total_progress current_progress
+  echo $iterations
 }
 
 function bd::cmd::range() {
@@ -15,11 +19,11 @@ function bd::cmd::range() {
       end=$2
       ;;
   esac
-  iterations=$(eval "echo {$start..$end}")
-  total_progress=$(wc -w <<< $iterations)
+  iter {$start..$end}
 }
 
 function bd::cmd::progress() {
+  _load current_progress total_progress
   current_progress=$((current_progress += 1))
   if [[ "$total_progress" == "0" ]]; then
     local status="$(printf "%3d" $current_progress)."
@@ -34,4 +38,5 @@ function bd::cmd::progress() {
     current_progress=0
     total_progress=0
   fi
+  _save total_progress current_progress
 }
