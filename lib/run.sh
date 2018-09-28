@@ -1,4 +1,4 @@
-function run() {
+function bd::run() {
   local script=$1
 
   for name in $(compgen -A function); do

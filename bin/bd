@@ -20,4 +20,4 @@ source $BD_ROOT/lib/args.sh
 source $BD_ROOT/lib/metadata.sh
 source $BD_ROOT/lib/run.sh
 
-run $SCRIPT
+bd::run $SCRIPT
