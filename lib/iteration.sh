@@ -2,7 +2,7 @@ total_progress=0
 current_progress=0
 
 function iter() {
-  iterations=$(eval "echo $@")
+  local iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
   current_progress=0
   _save total_progress current_progress

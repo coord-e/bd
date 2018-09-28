@@ -10,7 +10,11 @@ function _save() {
 
 function _load() {
   for key in $@; do
-    value=$(cat $BD_CACHE/$key)
+    local path=$BD_CACHE/$key
+    if [ ! -f $path ]; then
+      warn "internal; loading variable \"$key\", which is not defined"
+    fi
+    value=$(cat $path)
     eval "$key=$value"
   done
 }
