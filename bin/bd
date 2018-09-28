@@ -13,6 +13,8 @@ BD_SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
 
+source $BD_ROOT/lib/store.sh
+
 source $BD_ROOT/lib/print.sh
 source $BD_ROOT/lib/confirm.sh
 source $BD_ROOT/lib/iteration.sh
