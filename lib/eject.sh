@@ -1,4 +1,17 @@
 outfile=${ARGS[0]}
+
+if [ -f "$outfile" ]; then
+  warn "The file $outfile already exists."
+  confirm "Overwrite?"
+  if [ "$?" != "0" ]; then
+    error "Aborted."
+    exit -1
+  fi
+
+  progress "Removing $outfile"
+  rm $outfile
+fi
+
 function eject() {
   progress "Start ejecting \"$SCRIPT\" into \"$outfile\""
 
