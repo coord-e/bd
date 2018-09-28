@@ -1,6 +1,9 @@
-bd_used_cmds=()
-
 function bd::util::find_used() {
+  bd_used_cmds=()
+  bd::util::find_used_impl true
+}
+
+function bd::util::find_used_impl() {
   local bd_cmds=($(compgen -A function | grep bd::cmd::))
   while read line
   do
@@ -12,7 +15,7 @@ function bd::util::find_used() {
       fi
       if [[ "$line" == *"$query"* ]]; then
         bd_used_cmds+=("$cmd")
-        declare -f $cmd | sed -e 's/.*()//' | bd::util::find_used false
+        declare -f $cmd | sed -e 's/.*()//' | bd::util::find_used_impl false
       fi
     done
   done
@@ -35,8 +38,7 @@ function bd::eject() {
 
   bd::cmd::progress "Start ejecting \"$BD_SCRIPT\" into \"$outfile\""
 
-  bd_used_cmds=()
-  bd::util::find_used true < $BD_SCRIPT
+  bd::util::find_used < $BD_SCRIPT
 
   echo "#!/usr/bin/env bash" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
