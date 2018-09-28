@@ -1,13 +1,28 @@
+function bd::cmd::log() {
+  local loglevel=$1
+  shift
+  local content=$@
+
+  declare -A level2fmt=(
+    [debug]="\033[0;35m[DEBUG] \033[0m %s\n"
+    [info]="\033[0;32m[INFO] \033[0m\033[0;01m %s\033[0;0m\n"
+    [warn]="\033[0;33m[WARN] \033[0m\033[0;01m %s\033[0;0m\n"
+    [error]="\033[0;31m[ERROR] \033[0m\033[0;01m %s\033[0;0m\n"
+  )
+
+  printf "${level2fmt[$loglevel]}" "$content" >&2
+}
+
 function bd::cmd::debug (){
-  echo -e "\033[0;35m[DEBUG] \033[0m $1" >&2
+  log debug "$@"
 }
 
 function bd::cmd::info (){
-  echo -e "\033[0;32m[INFO] \033[0m\033[0;01m $1\033[0;0m" >&2
+  log info "$@"
 }
 
 function bd::cmd::error (){
-  echo -e "\033[0;31m[ERROR] \033[0m\033[0;01m $1\033[0;0m" >&2
+  log error "$@"
 }
 
 function bd::cmd::error_exit () {
@@ -16,7 +31,7 @@ function bd::cmd::error_exit () {
 }
 
 function bd::cmd::warn (){
-  echo -e "\033[0;33m[WARN] \033[0m\033[0;01m $1\033[0;0m" >&2
+  log warn "$@"
 }
 
 function bd::logger::debug () {
