@@ -19,4 +19,12 @@ source $BD_ROOT/lib/iteration.sh
 source $BD_ROOT/lib/args.sh
 source $BD_ROOT/lib/metadata.sh
 
+if [ "$SCRIPT" == "eject" ]; then
+  SCRIPT=${ARGS[0]}
+  SCRIPT_NAME=$SCRIPT
+  shift
+  ARGS=($@)
+  source $BD_ROOT/lib/eject.sh
+fi
+
 source $SCRIPT
