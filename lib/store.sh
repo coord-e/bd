@@ -22,7 +22,7 @@ function bd::store::load() {
       bd::cmd::warn "internal; loading variable \"$key\", which is not defined"
     fi
     local value=$(cat $path)
-    if [  ]; then
+    if [ $path == *.ary ]; then
       eval "$key=($value)"
     else
       eval "$key=\"$value\""
