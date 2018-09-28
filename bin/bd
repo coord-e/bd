@@ -7,14 +7,16 @@ if [ ! -d "$BD_CACHE" ]; then
 fi
 
 if [ -v BD_EJECTED ]; then
-  SCRIPT=$0
+  BD_SCRIPT=$0
 else
-  SCRIPT=$1
+  BD_SCRIPT=$1
   shift
 fi
 
-ARGS=($@)
-SCRIPT_NAME=$SCRIPT
+BD_SCRIPT=$1
+shift
+BD_ARGS=($@)
+BD_SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
 BD_BIN=$BD_ROOT/bin/bd
@@ -30,11 +32,11 @@ bd_import $BD_ROOT/lib/args.sh
 bd_import $BD_ROOT/lib/metadata.sh
 
 if [ "$SCRIPT" == "eject" ]; then
-  SCRIPT=${ARGS[0]}
-  SCRIPT_NAME=$SCRIPT
+  BD_SCRIPT=${ARGS[0]}
+  BD_SCRIPT_NAME=$SCRIPT
   shift
-  ARGS=($@)
+  BD_ARGS=($@)
   source $BD_ROOT/lib/eject.sh
 fi
 
-bd_import $SCRIPT
+bd::run $BD_SCRIPT

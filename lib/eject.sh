@@ -1,19 +1,19 @@
-outfile=${ARGS[0]}
+outfile=${BD_ARGS[0]}
 
 if [ -f "$outfile" ]; then
-  warn "The file $outfile already exists."
-  confirm "Overwrite?"
+  bd::cmd::warn "The file $outfile already exists."
+  bd::cmd::confirm "Overwrite?"
   if [ "$?" != "0" ]; then
-    error "Aborted."
+    bd::cmd::error "Aborted."
     exit -1
   fi
 
-  progress "Removing $outfile"
+  bd::cmd::progress "Removing $outfile"
   rm $outfile
 fi
 
-function eject() {
-  progress "Start ejecting \"$SCRIPT\" into \"$outfile\""
+function bd::eject() {
+  bd::cmd::progress "Start ejecting \"$BD_SCRIPT\" into \"$outfile\""
 
   echo "#!/usr/bin/env bash" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
@@ -23,15 +23,15 @@ function eject() {
       local cmdline=($line)
       local importing="$(eval "echo ${cmdline[1]}")"
       cat "$importing" >> $outfile
-      progress "Importing $importing"
+      bd::cmd::progress "Importing $importing"
     else
       echo "$line" >> $outfile
     fi
   done < $BD_BIN
-  progress "Make output executable"
+  bd::cmd::progress "Make output executable"
   chmod +x $outfile
-  progress "Done."
+  bd::cmd::progress "Done."
 }
 
-eject
+bd::eject
 exit

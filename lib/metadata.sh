@@ -1,11 +1,11 @@
-function name() {
-  SCRIPT_NAME=$1
+function bd::cmd::name() {
+  BD_SCRIPT_NAME=$1
 }
 
-function description() {
+function bd::cmd::description() {
   if [ -t 1 ]; then
-    SCRIPT_DESCRIPTION=$(cat)
+    BD_SCRIPT_DESCRIPTION=$(cat)
   else
-    SCRIPT_DESCRIPTION=$@
+    BD_SCRIPT_DESCRIPTION=$@
   fi
 }

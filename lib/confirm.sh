@@ -1,4 +1,4 @@
-function confirm (){
+function bd::cmd::confirm (){
   local MSG=$1
   while true; do
     printf '%s ' "$MSG"
