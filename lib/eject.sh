@@ -28,6 +28,8 @@ function eject() {
       echo "$line" >> $outfile
     fi
   done < $BD_BIN
+  progress "Make output executable"
+  chmod +x $outfile
   progress "Done."
 }
 
