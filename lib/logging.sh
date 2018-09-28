@@ -10,6 +10,12 @@ function bd::cmd::log() {
     [error]=3
   )
 
+  if [ -z "${level2num[$BD_LOG_LEVEL]}" ]; then
+    local invalid_one=$BD_LOG_LEVEL
+    BD_LOG_LEVEL=info
+    bd::logger::error_exit "Invalid log level \"$invalid_one\""
+  fi
+
   if [ ${level2num[$loglevel]} -lt ${level2num[$BD_LOG_LEVEL]} ]; then
     return
   fi
