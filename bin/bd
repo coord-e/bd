@@ -8,7 +8,7 @@ fi
 
 SCRIPT=$1
 shift
-ARGS=$@
+ARGS=($@)
 SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
