@@ -1,4 +1,4 @@
-function args() {
+function bd::cmd::args() {
   local args_spec=$@
 
   declare -A types=(

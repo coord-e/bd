@@ -1,8 +1,8 @@
-function name() {
+function bd::cmd::name() {
   SCRIPT_NAME=$1
 }
 
-function description() {
+function bd::cmd::description() {
   if [ -t 1 ]; then
     SCRIPT_DESCRIPTION=$(cat)
   else

@@ -19,4 +19,11 @@ source $BD_ROOT/lib/iteration.sh
 source $BD_ROOT/lib/args.sh
 source $BD_ROOT/lib/metadata.sh
 
+for name in $(compgen -A function); do
+  if [[ "$name" == bd::cmd::* ]]; then
+    vis_name=${name#bd::cmd::}
+    eval "function $vis_name () { $name \"\$@\"; }"
+  fi
+done
+
 source $SCRIPT
