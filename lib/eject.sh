@@ -1,8 +1,8 @@
 function bd::util::find_used() {
   bd_used_cmds=()
-  _save bd_used_cmds
+  bd::store::save bd_used_cmds
   bd::util::find_used_impl true
-  _load bd_used_cmds
+  bd::store::load bd_used_cmds
 }
 
 function bd::util::find_used_impl() {
@@ -16,9 +16,9 @@ function bd::util::find_used_impl() {
         local query=$cmd
       fi
       if [[ "$line" == *"$query"* ]]; then
-        _load bd_used_cmds
+        bd::store::load bd_used_cmds
         bd_used_cmds+=("$cmd")
-        _save bd_used_cmds
+        bd::store::save bd_used_cmds
         declare -f $cmd | sed -e 's/.*()//' | bd::util::find_used_impl false
       fi
     done

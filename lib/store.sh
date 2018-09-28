@@ -1,4 +1,4 @@
-function _save() {
+function bd::store::save() {
   for key in $@; do
     if [[ "$(declare -p $key)" =~ "declare -a" ]]; then
       local value=$(eval "echo \"\${$key[@]}\"")
@@ -13,7 +13,7 @@ function _save() {
   done
 }
 
-function _load() {
+function bd::store::load() {
   for key in $@; do
     local path=$BD_CACHE/$key
     if [ -f $path.ary ]; then
