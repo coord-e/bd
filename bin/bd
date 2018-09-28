@@ -18,6 +18,8 @@ if [ "$BD_SCRIPT" == "eject" ]; then
   shift
   BD_ARGS=($@)
   source $BD_ROOT/lib/eject.sh
+  bd::eject ${BD_ARGS[0]}
+  exit
 fi
 
 bd::run $BD_SCRIPT

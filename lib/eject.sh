@@ -1,18 +1,18 @@
-outfile=${BD_ARGS[0]}
+function bd::eject() {
+  local outfile=$1
 
-if [ -f "$outfile" ]; then
-  bd::cmd::warn "The file $outfile already exists."
-  bd::cmd::confirm "Overwrite?"
-  if [ "$?" != "0" ]; then
-    bd::cmd::error "Aborted."
-    exit -1
+  if [ -f "$outfile" ]; then
+    bd::cmd::warn "The file $outfile already exists."
+    bd::cmd::confirm "Overwrite?"
+    if [ "$?" != "0" ]; then
+      bd::cmd::error "Aborted."
+      exit -1
+    fi
+
+    bd::cmd::progress "Removing $outfile"
+    rm $outfile
   fi
 
-  bd::cmd::progress "Removing $outfile"
-  rm $outfile
-fi
-
-function bd::eject() {
   bd::cmd::progress "Start ejecting \"$BD_SCRIPT\" into \"$outfile\""
 
   local bd_cmds=($(compgen -A function | grep bd::cmd::))
@@ -39,6 +39,3 @@ function bd::eject() {
   chmod +x $outfile
   bd::cmd::progress "Done."
 }
-
-bd::eject
-exit
