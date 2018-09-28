@@ -1,12 +1,12 @@
 total_progress=0
 current_progress=0
 
-function iter() {
+function bd::cmd::iter() {
   iterations=$(eval "echo $@")
   total_progress=$(wc -w <<< $iterations)
 }
 
-function range() {
+function bd::cmd::range() {
   local start=0
   local end=0
   case "$#" in
@@ -22,7 +22,7 @@ function range() {
   total_progress=$(wc -w <<< $iterations)
 }
 
-function progress() {
+function bd::cmd::progress() {
   current_progress=$((current_progress += 1))
   if [[ "$total_progress" == "0" ]]; then
     local status="$(printf "%3d" $current_progress)."
