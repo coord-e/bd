@@ -43,8 +43,18 @@ Are you ok? [y/n] > n
 [INFO]  Exiting...
 ```
 
+## Eject
+
+You can make your `bd` script independent from `bd`, with `bd eject`
+
+```bash
+bd eject script.bd script.sh
+
+# Now, script.sh acts the same as script.bd, but it doesn't require `bd` binary
+./script.sh
+```
+
 # TODO
 
 - `config` command: Stress-free configuration management
-- `bd eject`: Make your script independent from `bd`
 - and more!
