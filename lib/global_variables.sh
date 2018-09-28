@@ -14,7 +14,7 @@ fi
 BD_ARGS=($@)
 BD_SCRIPT_NAME=$BD_SCRIPT
 
-total_progress=0
-current_progress=0
+bd_total_progress=0
+bd_current_progress=0
 
 BD_DEFAULT_EJECTED_FUNCTIONS=()
