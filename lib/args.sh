@@ -52,7 +52,7 @@ function bd::cmd::args() {
 
   declare -A already_got
   parsing=""
-  for OPT in $ARGS
+  for OPT in $BD_ARGS
   do
     if [ -n "$parsing" ]; then
       read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$parsing]})
@@ -114,7 +114,7 @@ function bd::cmd::args() {
   done
 
   if $arg_help; then
-    echo -n "usage: $SCRIPT_NAME "
+    echo -n "usage: $BD_SCRIPT_NAME "
     for OPT in "${!opts[@]}"; do
       read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
       if [[ -z "$example" ]]; then
@@ -128,7 +128,7 @@ function bd::cmd::args() {
     printf "\n\n"
     while read line; do
       printf "\t%s\n" "$line"
-    done <<< $SCRIPT_DESCRIPTION
+    done <<< $BD_SCRIPT_DESCRIPTION
     exit 0
   fi
 }

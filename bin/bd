@@ -6,10 +6,10 @@ if [ ! -d "$BD_CACHE" ]; then
   mkdir $BD_CACHE
 fi
 
-SCRIPT=$1
+BD_SCRIPT=$1
 shift
-ARGS=$@
-SCRIPT_NAME=$SCRIPT
+BD_ARGS=$@
+BD_SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
 
@@ -20,4 +20,4 @@ source $BD_ROOT/lib/args.sh
 source $BD_ROOT/lib/metadata.sh
 source $BD_ROOT/lib/run.sh
 
-bd::run $SCRIPT
+bd::run $BD_SCRIPT
