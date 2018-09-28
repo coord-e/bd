@@ -31,24 +31,24 @@ function bd::cmd::log() {
 }
 
 function bd::cmd::debug (){
-  log debug "$@"
+  bd::cmd::log debug "$@"
 }
 
 function bd::cmd::info (){
-  log info "$@"
+  bd::cmd::log info "$@"
 }
 
 function bd::cmd::error (){
-  log error "$@"
+  bd::cmd::log error "$@"
 }
 
 function bd::cmd::error_exit () {
-  error "$1"
+  bd::cmd::error "$1"
   exit ${2:--1}
 }
 
 function bd::cmd::warn (){
-  log warn "$@"
+  bd::cmd::log warn "$@"
 }
 
 function bd::logger::debug () {
