@@ -29,3 +29,5 @@ function bd::store::load() {
     fi
   done
 }
+
+BD_DEFAULT_EJECTED_FUNCTIONS+=("bd::store::save" "bd::store::load")

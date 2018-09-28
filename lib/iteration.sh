@@ -19,7 +19,7 @@ function bd::cmd::range() {
       end=$2
       ;;
   esac
-  iter {$start..$end}
+  bd::cmd::iter {$start..$end}
 }
 
 function bd::cmd::progress() {
