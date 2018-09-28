@@ -17,6 +17,9 @@ function bd::util::find_used_impl() {
       fi
       if [[ "$line" == *"$query"* ]]; then
         bd::store::load bd_used_cmds
+        if [[ "${bd_used_cmds[@]}" == *$cmd* ]]; then
+          continue
+        fi
         bd_used_cmds+=("$cmd")
         bd::store::save bd_used_cmds
         declare -f $cmd | sed -e 's/.*()//' | bd::util::find_used_impl false
