@@ -15,3 +15,18 @@ function bd::cmd::warn (){
   echo -e "\033[0;33m[WARN] \033[0m\033[0;01m $1\033[0;0m" >&2
 }
 
+function bd::logger::info () {
+  bd::cmd::info "bd: $@"
+}
+
+function bd::logger::error () {
+  bd::cmd::error "bd: $@"
+}
+
+function bd::logger::error_exit () {
+  bd::cmd::error_exit "bd: $@"
+}
+
+function bd::logger::warn (){
+  bd::cmd::warn "bd: $@"
+}
