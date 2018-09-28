@@ -1,6 +1,5 @@
 function bd::cmd::iter() {
   local iterations=$(eval "echo $@")
-  local iterations=$(eval "echo $@")
   bd_total_progress=$(wc -w <<< $iterations)
   bd_current_progress=0
   bd::store::save bd_total_progress bd_current_progress
