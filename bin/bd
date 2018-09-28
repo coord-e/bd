@@ -13,10 +13,8 @@ else
   shift
 fi
 
-BD_SCRIPT=$1
-shift
 BD_ARGS=($@)
-BD_SCRIPT_NAME=$SCRIPT
+BD_SCRIPT_NAME=$BD_SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
 BD_BIN=$BD_ROOT/bin/bd
@@ -30,10 +28,11 @@ bd_import $BD_ROOT/lib/confirm.sh
 bd_import $BD_ROOT/lib/iteration.sh
 bd_import $BD_ROOT/lib/args.sh
 bd_import $BD_ROOT/lib/metadata.sh
+bd_import $BD_ROOT/lib/run.sh
 
-if [ "$SCRIPT" == "eject" ]; then
-  BD_SCRIPT=${ARGS[0]}
-  BD_SCRIPT_NAME=$SCRIPT
+if [ "$BD_SCRIPT" == "eject" ]; then
+  BD_SCRIPT=${BD_ARGS[0]}
+  BD_SCRIPT_NAME=$BD_SCRIPT
   shift
   BD_ARGS=($@)
   source $BD_ROOT/lib/eject.sh
