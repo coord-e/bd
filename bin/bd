@@ -12,6 +12,7 @@ ARGS=($@)
 SCRIPT_NAME=$SCRIPT
 
 BD_ROOT="$(realpath $(dirname $0)/..)"
+BD_BIN=$BD_ROOT/bin/bd
 
 source $BD_ROOT/lib/print.sh
 source $BD_ROOT/lib/confirm.sh
