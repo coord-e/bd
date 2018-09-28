@@ -16,7 +16,7 @@ for i in $(range 1 $arg_times); do
 done
 
 if ! $arg_ok; then
-  confirm "Are you ok?" || error "You're not OK...";
+  confirm "Are you ok?" || error_exit "You're not OK...";
 fi
 
 progress "done"

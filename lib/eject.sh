@@ -35,11 +35,7 @@ function bd::eject() {
 
   if [ -f "$outfile" ]; then
     bd::cmd::warn "The file $outfile already exists."
-    bd::cmd::confirm "Overwrite?"
-    if [ "$?" != "0" ]; then
-      bd::cmd::error "Aborted."
-      exit -1
-    fi
+    bd::cmd::confirm "Overwrite?" || bd::cmd::error_exit "Aborted."
 
     bd::cmd::progress "Removing $outfile"
     rm $outfile
