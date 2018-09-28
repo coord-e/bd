@@ -18,3 +18,5 @@ bd_total_progress=0
 bd_current_progress=0
 
 BD_DEFAULT_EJECTED_FUNCTIONS=()
+
+BD_LOG_LEVEL=info

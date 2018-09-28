@@ -3,6 +3,17 @@ function bd::cmd::log() {
   shift
   local content=$@
 
+  declare -A level2num=(
+    [debug]=0
+    [info]=1
+    [warn]=2
+    [error]=3
+  )
+
+  if [ ${level2num[$loglevel]} -lt ${level2num[$BD_LOG_LEVEL]} ]; then
+    return
+  fi
+
   declare -A level2fmt=(
     [debug]="\033[0;35m[DEBUG] \033[0m %s\n"
     [info]="\033[0;32m[INFO] \033[0m\033[0;01m %s\033[0;0m\n"
