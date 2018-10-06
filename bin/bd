@@ -24,4 +24,6 @@ if [ "$BD_SCRIPT" == "eject" ]; then
   exit
 fi
 
+bd::run_startup
+
 bd::run $BD_SCRIPT

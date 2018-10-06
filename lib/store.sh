@@ -31,4 +31,4 @@ function bd::store::load() {
 }
 
 BD_DEFAULT_EJECTED_FUNCTIONS+=("bd::store::save" "bd::store::load")
-bd::store::save bd_total_progress bd_current_progress
+BD_STARTUP_CODE+=("bd::store::save bd_total_progress bd_current_progress")

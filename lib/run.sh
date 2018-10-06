@@ -10,3 +10,9 @@ function bd::run() {
 
   source $script
 }
+
+function bd::run_startup() {
+  for cmd in "${BD_STARTUP_CODE[@]}"; do
+    eval "$cmd"
+  done
+}
