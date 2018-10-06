@@ -53,6 +53,11 @@ function bd::eject() {
     echo "${definition//bd::cmd::/}" >> $outfile
   done
 
+  bd::cmd::progress "Embed startup code"
+  for cmd in "${BD_STARTUP_CODE[@]}"; do
+    echo "$cmd" >> $outfile
+  done
+
   cat $BD_SCRIPT >> $outfile
   bd::cmd::progress "Make output executable"
   chmod +x $outfile
