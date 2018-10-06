@@ -1,7 +1,7 @@
 readonly BD_CACHE="$HOME/.cache/bd"
 
 if [ ! -d "$BD_CACHE" ]; then
-  mkdir $BD_CACHE
+  mkdir -p $BD_CACHE
 fi
 
 if [ -v BD_EJECTED ]; then
