@@ -2,8 +2,6 @@
 
 Bash Framework to Build CLI tools
 
-**This project is in progress. Please see [TODO](#todo) and PRs are welcome.**
-
 # Example
 
 ```bash
@@ -56,5 +54,10 @@ bd eject script.bd script.sh
 
 # TODO
 
+- Progress bar support in `progress`
+- Output buffering until failure
+- User-defined themes
+- vim syntax
+- Automatically generate completions
 - `config` command: Stress-free configuration management
 - and more!
