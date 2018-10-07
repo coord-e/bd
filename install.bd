@@ -27,13 +27,14 @@ progress "Checking the version of bash..."
 [ "${BASH_VERSINFO}" -lt 4 ] && error_exit "bd requires bash >= 4, however you have version ${BASH_VERSINFO}. Aborting"
 
 progress "Downloading bd v${INSTALL_VERSION}"
-cd /tmp
+pushd /tmp > /dev/null
 wget https://github.com/coord-e/bd/archive/v${INSTALL_VERSION}.tar.gz -O bd.tar.gz
 tar xf bd.tar.gz
 cp -r ./bd-${INSTALL_VERSION} $HOME/.bd
 
 progress "Cleaning up downloaded files..."
 rm -r bd.tar.gz bd-${INSTALL_VERSION}
+popd > /dev/null
 
 progress "Appending the installation path to PATH..."
 for profile_file in ".bash_profile" ".zprofile" ".profile"; do
