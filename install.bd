@@ -15,7 +15,7 @@ progress "Checking the current installation..."
 if type bd > /dev/null 2>&1; then
   warn "It seems that bd is already installed."
   confirm "Overwrite?"
-  info "Launchng uninstaller"
+  info "Launching uninstaller"
   eval "$(bd uninstall -)"
   info "Uninstalled the previous installation."
   bd::run_startup
