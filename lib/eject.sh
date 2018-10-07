@@ -49,6 +49,12 @@ function bd::eject() {
   echo "set -ue -o pipefail" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
   cat  $BD_ROOT/lib/global_variables.sh >> $outfile
+
+  local ro_list=$(readonly)
+  for name in $(compgen -v | grep BD_); do
+    echo "$ro_list" | grep -q $name || declare -p $name >> $outfile
+  done
+
   for cmd in "${bd_used_cmds[@]}"; do
     local definition=$(declare -f $cmd)
     echo "${definition//bd::cmd::/}" >> $outfile
