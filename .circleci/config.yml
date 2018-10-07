@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  build:
+    branches:
+      ignore:
+        - gh-pages
+    docker:
+      - image: bash:4
+    environment:
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: apk add git openssh
+      - run:
+          name: Add github to known hosts
+          command: |
+            mkdir -p ~/.ssh
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Eject the script
+          command: |
+            ./bin/bd eject install.bd install.sh
+      - deploy:
+          name: Deploy
+          command: |
+            if [ "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
+              exit 0
+            fi
+
+            git config --global user.email $GIT_EMAIL
+            git config --global user.name $GIT_NAME
+
+            git clone $CIRCLE_REPOSITORY_URL out
+
+            cd out
+            git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+            git rm -rf .
+            cd ..
+
+            cp install.sh out/
+            cp get.sh out/
+
+            mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+            cd out
+
+            git add -A
+            git commit -m "Eject installer script at ${CIRCLE_SHA1}" --allow-empty
+
+            git push origin $TARGET_BRANCH
