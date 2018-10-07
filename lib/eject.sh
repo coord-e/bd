@@ -46,6 +46,7 @@ function bd::eject() {
   bd::util::find_used < $BD_SCRIPT
 
   echo "#!/usr/bin/env bash" >> $outfile
+  echo "set -ue -o pipefail" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
   cat  $BD_ROOT/lib/global_variables.sh >> $outfile
   for cmd in "${bd_used_cmds[@]}"; do
