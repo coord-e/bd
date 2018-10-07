@@ -20,6 +20,9 @@ if type bd > /dev/null 2>&1; then
   info "Uninstalled the previous installation."
 fi
 
+progress "Checking the version of bash..."
+[ "${BASH_VERSINFO}" -lt 4 ] && error_exit "bd requires bash >= 4, however you have version ${BASH_VERSINFO}. Aborting"
+
 progress "Cloning bd to ~/.bd"
 git clone https://github.com/coord-e/bd.git ~/.bd
 
