@@ -6,14 +6,6 @@ English: [README.md](README.md)
 
 # インストール
 
-## Homebrew
-
-```bash
-brew install coord-e/bd/bd
-```
-
-## インストールスクリプト
-
 ```bash
 curl -fsSL https://coord-e.github.io/bd/get.sh | bash
 ```
