@@ -1,0 +1,20 @@
+#!/usr/bin/env bd
+
+name "bd installer script"
+description << EOF
+Install bd, the bash framework to build CLI tools.
+EOF
+
+info "Welcome to bd!"
+info "Starting the installation..."
+
+progress "Cloning bd to ~/.bd"
+git clone https://github.com/coord-e/bd.git ~/.bd
+
+progress "Appending the installation path to PATH..."
+echo 'export PATH="~/.bd/bin:$PATH"' >> ~/.bash_profile
+
+info "Done!"
+
+info "Restart your shell so the path changes take effect."
+info 'e.g. exec -l $SHELL'
