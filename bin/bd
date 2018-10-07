@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -eu -o pipefail
 
 readonly BD_ROOT="$(realpath $(dirname $0)/..)"
 readonly BD_BIN=$BD_ROOT/bin/bd
