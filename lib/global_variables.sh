@@ -1,9 +1,5 @@
 readonly BD_CACHE="$HOME/.cache/bd"
 
-if [ ! -d "$BD_CACHE" ]; then
-  mkdir -p $BD_CACHE
-fi
-
 if [ -v BD_EJECTED ]; then
   BD_SCRIPT=$0
 else
@@ -18,6 +14,8 @@ bd_total_progress=0
 bd_current_progress=0
 
 BD_DEFAULT_EJECTED_FUNCTIONS=()
-BD_STARTUP_CODE=()
+
+# Startup code always have to return 0
+BD_STARTUP_CODE=("[ ! -d $BD_CACHE ] && mkdir -p $BD_CACHE || :")
 
 BD_LOG_LEVEL=${BD_LOG_LEVEL:-info}
