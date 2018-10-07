@@ -6,6 +6,9 @@ Install bd, the bash framework to build CLI tools.
 EOF
 
 info "Welcome to bd!"
+
+confirm "This script will install bd to '~/.bd'. Proceed?" || error_exit "Aborting installation"
+
 info "Starting the installation..."
 
 progress "Cloning bd to ~/.bd"
