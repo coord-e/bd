@@ -178,7 +178,7 @@ bd::run_startup ()
 bd::store::save bd_total_progress bd_current_progress
 #!/usr/bin/env bd
 
-readonly INSTALL_VERSION=1.0.2
+readonly INSTALL_VERSION=1.0.3
 
 name "bd installer script"
 description << EOF
