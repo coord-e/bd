@@ -1,5 +1,7 @@
 #!/usr/bin/env bd
 
+readonly INSTALL_VERSION=1.0.0
+
 name "bd installer script"
 description << EOF
 Install bd, the bash framework to build CLI tools.
@@ -24,8 +26,19 @@ fi
 progress "Checking the version of bash..."
 [ "${BASH_VERSINFO}" -lt 4 ] && error_exit "bd requires bash >= 4, however you have version ${BASH_VERSINFO}. Aborting"
 
-progress "Cloning bd to ~/.bd"
-git clone https://github.com/coord-e/bd.git ~/.bd
+progress "Downloading bd v${INSTALL_VERSION}..."
+pushd /tmp > /dev/null
+wget https://github.com/coord-e/bd/archive/v${INSTALL_VERSION}.tar.gz -O bd.tar.gz
+
+progress "Extracting..."
+tar xf bd.tar.gz
+
+progress "Installing..."
+cp -r ./bd-${INSTALL_VERSION} $HOME/.bd
+
+progress "Cleaning up downloaded files..."
+rm -r bd.tar.gz bd-${INSTALL_VERSION}
+popd > /dev/null
 
 progress "Appending the installation path to PATH..."
 for profile_file in ".bash_profile" ".zprofile" ".profile"; do

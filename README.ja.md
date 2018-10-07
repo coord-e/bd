@@ -1,10 +1,10 @@
 # bd
 
-Bash Framework to accelerate your daily scripting
+日々のスクリプティングを加速する、Bashフレームワーク
 
-日本語: [README.ja.md](README.ja.md)
+English: [README.md](README.md)
 
-# Install
+# インストール
 
 ## Homebrew
 
@@ -12,15 +12,15 @@ Bash Framework to accelerate your daily scripting
 brew install coord-e/bd/bd
 ```
 
-## Installation script
+## インストールスクリプト
 
 ```bash
 curl -fsSL https://coord-e.github.io/bd/get.sh | bash
 ```
 
-# Example
+# 例
 
-See [examples/cli](examples/cli) for full-featured example
+[examples/cli](examples/cli)に詳細な例があります
 
 ```bash
 #!/usr/bin/env bd
@@ -42,6 +42,8 @@ fi
 info "Exiting..."
 ```
 
+出力:
+
 ```
 [INFO]  Hello, World
   10% ->  I'm making a progress
@@ -61,12 +63,12 @@ Are you ok? [y/n] > n
 
 ## Eject
 
-You can make your `bd` script independent from `bd`, with `bd eject`
+`bd eject`によって、`bd`スクリプトを`bd`に依存しない純粋なbashスクリプトに変換することができます
 
 ```bash
 bd eject script.bd script.sh
 
-# Now, script.sh acts the same as script.bd, but it doesn't require `bd` binary
+# script.shはscript.bdと同じように使えるが、bdがインストールされていない環境でも使用できる
 ./script.sh
 ```
 
