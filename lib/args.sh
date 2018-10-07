@@ -16,7 +16,7 @@ function bd::cmd::args() {
     example=${example//\"/}
 
     if [ -n "$parsing" ]; then
-      if [[ -n "${types[$type]}" ]]; then
+      if [ "${types[$type]+isset}" ]; then
         opts[$parsing]=$OPT
         parsing=""
         case $type in
@@ -35,7 +35,7 @@ function bd::cmd::args() {
         bd::logger::error_exit "args: parse failed; unexpected non-type expression $OPT"
       fi
     else
-      if [[ -n "${types[$type]}" ]]; then
+      if [ "${types[$type]+isset}" ]; then
         bd::logger::error_exit "args: parse failed; unexpected type expression $OPT"
       fi
       if [[ $OPT != -* ]]; then
@@ -64,8 +64,8 @@ function bd::cmd::args() {
       already_got[$parsing]=1
       parsing=""
     else
-      if [[ -n "${opts[$OPT]}" ]]; then
-        if [[ -n "${already_got[$OPT]}" ]]; then
+      if [ "${opts[$OPT]+isset}" ]; then
+        if [ "${already_got[$OPT]+isset}" ]; then
           bd::logger::error_exit "args: parse failed; $OPT is already supplied"
         fi
         read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
@@ -89,7 +89,7 @@ function bd::cmd::args() {
 
   for OPT in "${!opts[@]}"
   do
-    if [[ -z "${already_got[$OPT]}" ]]; then
+    if [ -z "${already_got[$OPT]+isset}" ]; then
       read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
       example=${example//\"/}
 
