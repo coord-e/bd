@@ -2,6 +2,8 @@
 
 日々のスクリプティングを加速する、Bashフレームワーク
 
+English: [README.md](README.md)
+
 # インストール
 
 ## Homebrew
