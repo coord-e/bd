@@ -20,11 +20,11 @@ bd_current_progress=0
 BD_P_DEFAULT_EJECTED_FUNCTIONS=()
 
 # Startup code always have to return 0
-BD_P_STARTUP_CODE=("[ ! -d $BD_CACHE ] && mkdir -p $BD_CACHE || :")
+BD_P_STARTUP_CODE=("[ ! -d \$BD_CACHE ] && mkdir -p \$BD_CACHE || :")
 
 BD_LOG_LEVEL=${BD_LOG_LEVEL:-info}
 declare -a BD_P_DEFAULT_EJECTED_FUNCTIONS=([0]="bd::store::save" [1]="bd::store::load")
-declare -a BD_P_STARTUP_CODE=([0]="[ ! -d /root/.cache/bd ] && mkdir -p /root/.cache/bd || :" [1]="bd::store::save bd_total_progress bd_current_progress")
+declare -a BD_P_STARTUP_CODE=([0]="[ ! -d \$BD_CACHE ] && mkdir -p \$BD_CACHE || :" [1]="bd::store::save bd_total_progress bd_current_progress")
 name () 
 { 
     BD_SCRIPT_NAME=$1
@@ -174,11 +174,11 @@ bd::run_startup ()
         eval "$cmd";
     done
 }
-[ ! -d /root/.cache/bd ] && mkdir -p /root/.cache/bd || :
+[ ! -d $BD_CACHE ] && mkdir -p $BD_CACHE || :
 bd::store::save bd_total_progress bd_current_progress
 #!/usr/bin/env bd
 
-readonly INSTALL_VERSION=1.0.0
+readonly INSTALL_VERSION=1.0.1
 
 name "bd installer script"
 description << EOF
