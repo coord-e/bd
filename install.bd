@@ -18,6 +18,7 @@ if type bd > /dev/null 2>&1; then
   info "Launchng uninstaller"
   eval "$(bd uninstall -)"
   info "Uninstalled the previous installation."
+  bd::run_startup
 fi
 
 progress "Checking the version of bash..."
