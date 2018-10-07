@@ -13,7 +13,7 @@ args --you string:World --ok bool
 info "Hello, $arg_you"
 
 for i in $(range 1 10); do
-  progress "I'm makin' a progress"
+  progress "I'm making a progress"
   sleep 1
 done
 
@@ -26,16 +26,16 @@ info "Exiting..."
 
 ```
 [INFO]  Hello, World
-  10% ->  I'm makin' a progress
-  20% ->  I'm makin' a progress
-  30% ->  I'm makin' a progress
-  40% ->  I'm makin' a progress
-  50% ->  I'm makin' a progress
-  60% ->  I'm makin' a progress
-  70% ->  I'm makin' a progress
-  80% ->  I'm makin' a progress
-  90% ->  I'm makin' a progress
- 100% ->  I'm makin' a progress
+  10% ->  I'm making a progress
+  20% ->  I'm making a progress
+  30% ->  I'm making a progress
+  40% ->  I'm making a progress
+  50% ->  I'm making a progress
+  60% ->  I'm making a progress
+  70% ->  I'm making a progress
+  80% ->  I'm making a progress
+  90% ->  I'm making a progress
+ 100% ->  I'm making a progress
 Are you ok? [y/n] > n
 [ERROR]  You're not OK...
 [INFO]  Exiting...
