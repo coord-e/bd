@@ -18,6 +18,8 @@ curl -fsSL https://coord-e.github.com/bd/install.sh | bash
 
 # Example
 
+See [examples/cli](examples/cli) for full-featured example
+
 ```bash
 #!/usr/bin/env bd
 
