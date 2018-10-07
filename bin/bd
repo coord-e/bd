@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+readonly BD_ROOT="$(realpath $(dirname $0)/..)"
+readonly BD_BIN=$BD_ROOT/bin/bd
+
+source $BD_ROOT/lib/global_variables.sh
+
+source $BD_ROOT/lib/store.sh
+
+source $BD_ROOT/lib/logging.sh
+source $BD_ROOT/lib/confirm.sh
+source $BD_ROOT/lib/iteration.sh
+source $BD_ROOT/lib/args.sh
+source $BD_ROOT/lib/metadata.sh
+source $BD_ROOT/lib/run.sh
+
+bd::run_startup
+
+if [ "$BD_SCRIPT" == "uninstall" ]; then
+  source $BD_ROOT/lib/uninstall.sh
+  bd::emit_uninstaller ${BD_ARGS[0]}
+  exit
+fi
+
+if [ "$BD_SCRIPT" == "eject" ]; then
+  BD_SCRIPT=${BD_ARGS[0]}
+  BD_SCRIPT_NAME=$BD_SCRIPT
+  shift
+  BD_ARGS=($@)
+  source $BD_ROOT/lib/eject.sh
+  bd::eject ${BD_ARGS[0]}
+  exit
+fi
+
+bd::run $BD_SCRIPT
