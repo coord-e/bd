@@ -178,7 +178,7 @@ bd::run_startup ()
 bd::store::save bd_total_progress bd_current_progress
 #!/usr/bin/env bd
 
-readonly INSTALL_VERSION=1.0.1
+readonly INSTALL_VERSION=1.0.2
 
 name "bd installer script"
 description << EOF
@@ -222,7 +222,7 @@ progress "Appending the installation path to PATH..."
 for profile_file in ".bash_profile" ".zprofile" ".profile"; do
   profile_path="$HOME/$profile_file"
   if [ -f "$profile_path" ]; then
-    echo 'export PATH="~/.bd/bin:$PATH"' >> "$profile_path"
+    echo 'export PATH="$HOME/.bd/bin:$PATH"' >> "$profile_path"
   fi
 done
 
