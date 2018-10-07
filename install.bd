@@ -1,6 +1,6 @@
 #!/usr/bin/env bd
 
-readonly INSTALL_VERSION=1.0.0
+readonly INSTALL_VERSION=1.0.1
 
 name "bd installer script"
 description << EOF
