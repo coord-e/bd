@@ -1,6 +1,6 @@
 # bd
 
-Bash Framework to Build CLI tools
+Bash Framework to accelerate your daily scripting
 
 日本語: [README.ja.md](README.ja.md)
 
