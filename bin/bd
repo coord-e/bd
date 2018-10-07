@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 readonly BD_ROOT="$(realpath $(dirname $0)/..)"
 readonly BD_BIN=$BD_ROOT/bin/bd
 
