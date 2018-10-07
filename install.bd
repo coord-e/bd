@@ -28,7 +28,12 @@ progress "Cloning bd to ~/.bd"
 git clone https://github.com/coord-e/bd.git ~/.bd
 
 progress "Appending the installation path to PATH..."
-echo 'export PATH="~/.bd/bin:$PATH"' >> ~/.bash_profile
+for profile_file in ".bash_profile" ".zprofile" ".profile"; do
+  profile_path="$HOME/$profile_file"
+  if [ -f "$profile_path" ]; then
+    echo 'export PATH="~/.bd/bin:$PATH"' >> "$profile_path"
+  fi
+done
 
 info "Done!"
 
