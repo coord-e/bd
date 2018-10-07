@@ -32,6 +32,9 @@ wget https://github.com/coord-e/bd/archive/v${INSTALL_VERSION}.tar.gz -O bd.tar.
 tar xf bd.tar.gz
 cp -r ./bd-${INSTALL_VERSION} $HOME/.bd
 
+progress "Cleaning up downloaded files..."
+rm -r bd.tar.gz bd-${INSTALL_VERSION}
+
 progress "Appending the installation path to PATH..."
 for profile_file in ".bash_profile" ".zprofile" ".profile"; do
   profile_path="$HOME/$profile_file"
