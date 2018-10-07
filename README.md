@@ -6,14 +6,6 @@ Bash Framework to accelerate your daily scripting
 
 # Install
 
-## Homebrew
-
-```bash
-brew install coord-e/bd/bd
-```
-
-## Installation script
-
 ```bash
 curl -fsSL https://coord-e.github.io/bd/get.sh | bash
 ```
