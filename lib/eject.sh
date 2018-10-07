@@ -1,7 +1,7 @@
 function bd::util::find_used() {
   bd_used_cmds=()
   local bd_cmds=($(compgen -A function | grep bd::))
-  bd_cmds+=(${BD_DEFAULT_EJECTED_FUNCTIONS[@]})
+  bd_cmds+=(${BD_P_DEFAULT_EJECTED_FUNCTIONS[@]})
   bd::store::save bd_used_cmds bd_cmds
   bd::util::find_used_impl true
   bd::store::load bd_used_cmds
@@ -49,13 +49,19 @@ function bd::eject() {
   echo "set -ue -o pipefail" >> $outfile
   echo "readonly BD_EJECTED=true" >> $outfile
   cat  $BD_ROOT/lib/global_variables.sh >> $outfile
+
+  local ro_list=$(readonly)
+  for name in $(compgen -v | grep BD_P_); do
+    echo "$ro_list" | grep -q $name || declare -p $name >> $outfile
+  done
+
   for cmd in "${bd_used_cmds[@]}"; do
     local definition=$(declare -f $cmd)
     echo "${definition//bd::cmd::/}" >> $outfile
   done
 
   bd::cmd::progress "Embed startup code"
-  for cmd in "${BD_STARTUP_CODE[@]}"; do
+  for cmd in "${BD_P_STARTUP_CODE[@]}"; do
     echo "$cmd" >> $outfile
   done
 

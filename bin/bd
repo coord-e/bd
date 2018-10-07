@@ -18,6 +18,12 @@ source $BD_ROOT/lib/run.sh
 
 bd::run_startup
 
+if [ "$BD_SCRIPT" == "uninstall" ]; then
+  source $BD_ROOT/lib/uninstall.sh
+  bd::emit_uninstaller ${BD_ARGS[0]}
+  exit
+fi
+
 if [ "$BD_SCRIPT" == "eject" ]; then
   BD_SCRIPT=${BD_ARGS[0]}
   BD_SCRIPT_NAME=$BD_SCRIPT

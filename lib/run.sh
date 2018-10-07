@@ -12,7 +12,7 @@ function bd::run() {
 }
 
 function bd::run_startup() {
-  for cmd in "${BD_STARTUP_CODE[@]}"; do
+  for cmd in "${BD_P_STARTUP_CODE[@]}"; do
     eval "$cmd"
   done
 }

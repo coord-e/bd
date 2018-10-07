@@ -1,0 +1,41 @@
+#!/usr/bin/env bd
+
+name "bd installer script"
+description << EOF
+Install bd, the bash framework to build CLI tools.
+EOF
+
+info "Welcome to bd!"
+
+confirm "This script will install bd to '~/.bd'. Proceed?" || error_exit "Aborting installation"
+
+info "Starting the installation..."
+
+progress "Checking the current installation..."
+if type bd > /dev/null 2>&1; then
+  warn "It seems that bd is already installed."
+  confirm "Overwrite?"
+  info "Launching uninstaller"
+  eval "$(bd uninstall -)"
+  info "Uninstalled the previous installation."
+  bd::run_startup
+fi
+
+progress "Checking the version of bash..."
+[ "${BASH_VERSINFO}" -lt 4 ] && error_exit "bd requires bash >= 4, however you have version ${BASH_VERSINFO}. Aborting"
+
+progress "Cloning bd to ~/.bd"
+git clone https://github.com/coord-e/bd.git ~/.bd
+
+progress "Appending the installation path to PATH..."
+for profile_file in ".bash_profile" ".zprofile" ".profile"; do
+  profile_path="$HOME/$profile_file"
+  if [ -f "$profile_path" ]; then
+    echo 'export PATH="~/.bd/bin:$PATH"' >> "$profile_path"
+  fi
+done
+
+info "Done!"
+
+info "Restart your shell so the path changes take effect."
+info 'e.g. exec -l $SHELL'
