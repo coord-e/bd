@@ -12,8 +12,8 @@ function bd::cmd::args() {
   opts["--help"]="bool"
   for OPT in $args_spec
   do
-    read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $OPT)
-    example=${example//\"/}
+    read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< $OPT)
+    default=${default//\"/}
 
     if [ -n "$parsing" ]; then
       if [ "${types[$type]+isset}" ]; then
@@ -21,13 +21,13 @@ function bd::cmd::args() {
         parsing=""
         case $type in
           'number' )
-            if [[ -n $example ]] && [[ ! $example =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-              bd::logger::error_exit "args: parse failed; number is required as example but got \"$example\""
+            if [[ -n $default ]] && [[ ! $default =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
+              bd::logger::error_exit "args: parse failed; number is required as default value but got \"$default\""
             fi
             ;;
           'bool' )
-            if [[ -n $example ]]; then
-              bd::logger::error_exit "args: parse failed; example value in flag"
+            if [[ -n $default ]]; then
+              bd::logger::error_exit "args: parse failed; default value in flag"
             fi
             ;;
         esac
@@ -50,7 +50,7 @@ function bd::cmd::args() {
   for OPT in "${BD_ARGS[@]}"
   do
     if [ -n "$parsing" ]; then
-      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$parsing]})
+      read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$parsing]})
 
       case $type in
         'number' )
@@ -68,7 +68,7 @@ function bd::cmd::args() {
         if [ "${already_got[$OPT]+isset}" ]; then
           bd::logger::error_exit "args: parse failed; $OPT is already supplied"
         fi
-        read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
+        read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
 
         if [[ $type == "bool" ]]; then
           eval "readonly arg_${OPT//-/}=true"
@@ -90,15 +90,15 @@ function bd::cmd::args() {
   for OPT in "${!opts[@]}"
   do
     if [ -z "${already_got[$OPT]+isset}" ]; then
-      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
-      example=${example//\"/}
+      read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
+      default=${default//\"/}
 
       case ${type} in
         'bool' )
           eval "readonly arg_${OPT//-/}=false"
           ;;
         * )
-          eval "readonly arg_${OPT//-/}=$example"
+          eval "readonly arg_${OPT//-/}=$default"
           ;;
       esac
     fi
@@ -108,14 +108,14 @@ function bd::cmd::args() {
     echo "name: $BD_SCRIPT_NAME"
     echo -n "usage: $(basename $BD_SCRIPT) "
     for OPT in "${!opts[@]}"; do
-      read -r type example <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
-      if [[ -z "$example" ]]; then
-        example=""
+      read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
+      if [[ -z "$default" ]]; then
+        default=""
       else
-        example="(=${example//\"/})"
+        default="(=${default//\"/})"
       fi
 
-      printf "[%s %s%s] " "$OPT" "${type}" "${example}"
+      printf "[%s %s%s] " "$OPT" "${type}" "${default}"
     done
     printf "\n\n"
     while read line; do
