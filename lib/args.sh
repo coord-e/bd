@@ -118,12 +118,10 @@ function bd::cmd::args() {
           ;;
         * )
           if [[ -z "$default" ]]; then
-            default=""
+            printf "%s %s " "$OPT" "${type}"
           else
-            default="(=${default//\"/})"
+            printf "[%s %s%s] " "$OPT" "${type}" "(=${default//\"/})"
           fi
-
-          printf "[%s %s%s] " "$OPT" "${type}" "${default}"
           ;;
       esac
     done
