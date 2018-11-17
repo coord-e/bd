@@ -112,13 +112,18 @@ function bd::cmd::args() {
     echo -n "usage: $(basename $BD_SCRIPT) "
     for OPT in "${!opts[@]}"; do
       read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
-      if [[ -z "$default" ]]; then
-        default=""
-      else
-        default="(=${default//\"/})"
-      fi
-
-      printf "[%s %s%s] " "$OPT" "${type}" "${default}"
+      case "${type}" in
+        "bool" )
+          printf "[%s] " "$OPT"
+          ;;
+        * )
+          if [[ -z "$default" ]]; then
+            printf "%s %s " "$OPT" "${type}"
+          else
+            printf "[%s %s%s] " "$OPT" "${type}" "(=${default//\"/})"
+          fi
+          ;;
+      esac
     done
     printf "\n\n"
     while read line; do
