@@ -64,10 +64,12 @@ bd eject script.bd script.sh
 
 # TODO
 
+- short option support in `args`
 - Progress bar support in `progress`
+- more useful examples
+- vim syntax
 - Output buffering until failure
 - User-defined themes
-- vim syntax
 - Automatically generate completions
 - `config` command: Stress-free configuration management
 - and more!
