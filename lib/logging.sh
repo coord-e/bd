@@ -21,10 +21,10 @@ function bd::cmd::log() {
   fi
 
   declare -A level2fmt=(
-    [debug]="\033[0;35m[DEBUG] \033[0m %s\n"
-    [info]="\033[0;32m[INFO] \033[0m\033[0;01m %s\033[0;0m\n"
-    [warn]="\033[0;33m[WARN] \033[0m\033[0;01m %s\033[0;0m\n"
-    [error]="\033[0;31m[ERROR] \033[0m\033[0;01m %s\033[0;0m\n"
+    [debug]="$(tput setaf 5)[DEBUG] $(tput sgr0) %s\n"
+    [info]="$(tput setaf 2)[INFO] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
+    [warn]="$(tput setaf 3)[WARN] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
+    [error]="$(tput setaf 1)[ERROR] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
   )
 
   printf "${level2fmt[$loglevel]}" "$content" >&2
