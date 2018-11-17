@@ -98,7 +98,7 @@ function bd::cmd::args() {
           eval "readonly arg_${OPT//-/}=false"
           ;;
         * )
-          if [ "$default_c" != ":*" ]; then
+          if [ "$default_c" != ":*" -a ! $arg_help ]; then
             bd::logger::error_exit "args: parse failed; $OPT is required"
           fi
           eval "readonly arg_${OPT//-/}=${default_c##:}"
