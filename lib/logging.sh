@@ -20,14 +20,21 @@ function bd::cmd::log() {
     return
   fi
 
-  declare -A level2fmt=(
-    [debug]="$(tput setaf 5)[DEBUG] $(tput sgr0) %s\n"
-    [info]="$(tput setaf 2)[INFO] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
-    [warn]="$(tput setaf 3)[WARN] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
-    [error]="$(tput setaf 1)[ERROR] $(tput sgr0)$(tput bold) %s$(tput sgr0)\n"
+  declare -A level2header=(
+    [debug]="$(tput setaf 5)[DEBUG]$(tput sgr0)"
+    [info]="$(tput setaf 2)[INFO]$(tput sgr0)"
+    [warn]="$(tput setaf 3)[WARN]$(tput sgr0)"
+    [error]="$(tput setaf 1)[ERROR]$(tput sgr0)"
   )
 
-  printf "${level2fmt[$loglevel]}" "$content" >&2
+  declare -A level2fmt=(
+    [debug]="%s\n"
+    [info]="$(tput bold)%s$(tput sgr0)\n"
+    [warn]="$(tput bold)%s$(tput sgr0)\n"
+    [error]="$(tput bold)%s$(tput sgr0)\n"
+  )
+
+  printf "${level2header[$loglevel]}  ${level2fmt[$loglevel]}" "$content" >&2
 }
 
 function bd::cmd::debug (){
