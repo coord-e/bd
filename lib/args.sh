@@ -90,15 +90,18 @@ function bd::cmd::args() {
   for OPT in "${!opts[@]}"
   do
     if [ -z "${already_got[$OPT]+isset}" ]; then
-      read -r type default <<< $(sed -e 's/:\(.*\)/ "\1"/g' <<< ${opts[$OPT]})
-      default=${default//\"/}
+      read -r type default_c <<< $(sed -e 's/:\(.*\)/ :"\1"/g' <<< ${opts[$OPT]})
+      default_c=${default_c//\"/}
 
       case ${type} in
         'bool' )
           eval "readonly arg_${OPT//-/}=false"
           ;;
         * )
-          eval "readonly arg_${OPT//-/}=$default"
+          if [ "$default_c" != ":*" ]; then
+            bd::logger::error_exit "args: parse failed; $OPT is required"
+          fi
+          eval "readonly arg_${OPT//-/}=${default_c##:}"
           ;;
       esac
     fi
