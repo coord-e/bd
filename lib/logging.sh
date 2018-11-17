@@ -26,6 +26,8 @@ function bd::cmd::log() {
     [warn]="$(tput setaf 3)[WARN]$(tput sgr0)"
     [error]="$(tput setaf 1)[ERROR]$(tput sgr0)"
   )
+  # TODO: Calculate suitable length based on each header length
+  local header_length=16
 
   declare -A level2fmt=(
     [debug]="%s\n"
@@ -34,7 +36,7 @@ function bd::cmd::log() {
     [error]="$(tput bold)%s$(tput sgr0)\n"
   )
 
-  printf "${level2header[$loglevel]}  ${level2fmt[$loglevel]}" "$content" >&2
+  printf "%-${header_length}s  ${level2fmt[$loglevel]}" "${level2header[$loglevel]}" "$content" >&2
 }
 
 function bd::cmd::debug (){
